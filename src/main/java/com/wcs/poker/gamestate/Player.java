@@ -3,11 +3,9 @@ package com.wcs.poker.gamestate;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("org.jsonschema2pojo")
 public class Player {
 
     @Expose
@@ -15,7 +13,7 @@ public class Player {
     @Expose
     private String name;
     @Expose
-    private String status;
+    private PlayerStatus status;
     @Expose
     private String version;
     @Expose
@@ -67,7 +65,7 @@ public class Player {
      * @return
      *     The status
      */
-    public String getStatus() {
+    public PlayerStatus getStatus() {
         return status;
     }
 
@@ -76,7 +74,7 @@ public class Player {
      * @param status
      *     The status
      */
-    public void setStatus(String status) {
+    public void setStatus(PlayerStatus status) {
         this.status = status;
     }
 

@@ -1,50 +1,23 @@
-
 package com.wcs.poker.gamestate;
 
-import javax.annotation.Generated;
-import com.google.gson.annotations.Expose;
-
-@Generated("org.jsonschema2pojo")
 public class Card {
 
-    @Expose
-    private String rank;
-    @Expose
-    private String suit;
+    private Rank rank;
+    private Suit suit;
 
-    /**
-     * 
-     * @return
-     *     The rank
-     */
-    public String getRank() {
+    public Rank getRank() {
         return rank;
     }
 
-    /**
-     * 
-     * @param rank
-     *     The rank
-     */
-    public void setRank(String rank) {
+    public void setRank(Rank rank) {
         this.rank = rank;
     }
 
-    /**
-     * 
-     * @return
-     *     The suit
-     */
-    public String getSuit() {
+    public Suit getSuit() {
         return suit;
     }
 
-    /**
-     * 
-     * @param suit
-     *     The suit
-     */
-    public void setSuit(String suit) {
+    public void setSuit(Suit suit) {
         this.suit = suit;
     }
 
