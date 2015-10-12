@@ -1,0 +1,76 @@
+{
+    "small_blind": 10,                              // A kis vak értéke. A nagyvak kétszerese a kisvaknak
+
+    "current_buy_in": 320,                          // A legmagasabb tét értéke, amit meg kell adni
+    "pot": 400,                                     // A pénzhalom nagysága az asztalon
+
+    "minimum_raise": 240,                           // Az az összeg ami a legkisebb emeléshez kell (legmagasabb tét)-(a játékos által berakott tét) + (minimum tét)
+                                                    //     current_buy_in - players[in_action][bet] + minimum_raise
+
+    "dealer": 1,                                    // Az osztó sorszáma ebben a körben
+                                                    //     Az első játékos: (dealer+1)%(players.length)
+
+    "orbits": 7,                                    // Ennyiszer ért körbe az osztókorong
+
+    "in_action": 1,                                 // A játékos sorszáma a játékosok tömbjében
+
+    "players": [                                    // A játékosok tömbje, a sorrend nem változik a játék folyamán
+
+        {
+            "id": 0,                                // A játékos azonosítója (megegyezik az indexel)
+
+            "name": "Albert",                       // Config beli név
+
+            "status": "active",                     // A játékos állapota:
+                                                    //   - active: A játékos tud merakni tétet, még megnyerheti a berakott pénzt
+                                                    //   - folded: A játékos bedobta, következő körben ismét játszik
+                                                    //   - out: A játékos elvesztette minden pénzét, ebben a játékban már nem játszik
+
+            "version": "Default random player",     // Verzió azonosító, amit a játékos küld vissza
+
+            "stack": 1010,                          // A játékos zsetonjai (Nem számolva az ebben a körben már beadott tétet)
+
+            "bet": 320                              // Az ebben a körben tétnek feltett zsetoinok összege
+        },
+        {
+            "id": 1,                                // Hasonlóan néz ki a játékos, azzal a különbséggel, hogy itt szerepelnek a kártyáink
+            "name": "Bob",
+            "status": "active",
+            "version": "Default random player",
+            "stack": 1590,
+            "bet": 80,
+            "hole_cards": [                         // A játékos kártyái, csak a saját kártyák látszanak, illetve játék végén ha megmutatták akkor az ellenfeleké is
+                {
+                    "rank": "6",                    // A lap értéke. Lehetséges értékek: 2-10 és J,Q,K,A
+                    "suit": "hearts"                // A lap színe. Lehetséges értékek: clubs,spades,hearts,diamonds
+                },
+                {
+                    "rank": "K",
+                    "suit": "spades"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Chuck",
+            "status": "out",
+            "version": "Default random player",
+            "stack": 0,
+            "bet": 0
+        }
+    ],
+    "community_cards": [                            // Az asztalon lévő kártyák
+        {
+            "rank": "4",
+            "suit": "spades"
+        },
+        {
+            "rank": "A",
+            "suit": "hearts"
+        },
+        {
+            "rank": "6",
+            "suit": "clubs"
+        }
+    ]
+}
