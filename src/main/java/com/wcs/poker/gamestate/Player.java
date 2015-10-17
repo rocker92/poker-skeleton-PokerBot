@@ -24,10 +24,6 @@ public class Player {
     @Expose
     private List<Card> holeCards = new ArrayList<Card>();
 
-    public Player() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     /**
      * 
      * @return
