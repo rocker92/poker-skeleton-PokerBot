@@ -1,10 +1,10 @@
 
 package com.wcs.poker.gamestate;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
 
@@ -23,6 +23,10 @@ public class Player {
     @SerializedName("hole_cards")
     @Expose
     private List<Card> holeCards = new ArrayList<Card>();
+
+    public Player() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     /**
      * 
@@ -148,6 +152,10 @@ public class Player {
      */
     public void setHoleCards(List<Card> holeCards) {
         this.holeCards = holeCards;
+    }
+
+    public void assertEquals(int i, int betRequest) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
