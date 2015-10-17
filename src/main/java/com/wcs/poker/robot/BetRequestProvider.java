@@ -27,10 +27,12 @@ public class BetRequestProvider {
     private List<Rank> nagyLapok = new ArrayList<>();
     
     private  Integer minimumEmeles;
+    private int megad ;
 
     public BetRequestProvider(GameState gameState) {
         this.gameState = gameState;
         this.minimumEmeles = gameState.getCurrentBuyIn() - gameState.getPlayers().get(gameState.getInAction()).getBet() + gameState.getMinimumRaise();
+        this.megad = gameState.getCurrentBuyIn()-gameState.getPlayers().get(gameState.getInAction()).getBet(); 
         init();
     }
 
@@ -89,6 +91,7 @@ public class BetRequestProvider {
 
     }
 
+    
     private void emelesDontes() {
         for (Player player : gameState.getPlayers()) {
             if (player.getStatus().equals("active")) {
@@ -96,6 +99,9 @@ public class BetRequestProvider {
                         >  minimumEmeles) {
                     setBetRequest(0);
                     
+                }
+                else{
+                    setBetRequest(megad);
                 }
             }
         }
