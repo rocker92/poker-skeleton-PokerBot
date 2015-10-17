@@ -67,6 +67,13 @@ public class HandProvider {
         
     }
 
+    public boolean isPairInHand(){
+        if (elso.getRank().equals(masodik.getRank())){
+            return true;
+        }
+        return false;
+    }
+    
     public boolean isBigCards() {
         if ((elso.getRank().equals(Rank.ACE)
                 || elso.getRank().equals(Rank.KING))

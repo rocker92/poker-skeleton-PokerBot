@@ -25,14 +25,14 @@ public class BetRequestProvider {
     private List<Card> cards = new ArrayList<>();
     private List<Card> ourCards = new ArrayList<>();
     private List<Rank> nagyLapok = new ArrayList<>();
-    
-    private  Integer minimumEmeles;
-    private int megad ;
+
+    private Integer minimumEmeles;
+    private int megad;
 
     public BetRequestProvider(GameState gameState) {
         this.gameState = gameState;
         this.minimumEmeles = gameState.getCurrentBuyIn() - gameState.getPlayers().get(gameState.getInAction()).getBet() + gameState.getMinimumRaise();
-        this.megad = gameState.getCurrentBuyIn()-gameState.getPlayers().get(gameState.getInAction()).getBet(); 
+        this.megad = gameState.getCurrentBuyIn() - gameState.getPlayers().get(gameState.getInAction()).getBet();
         init();
     }
 
@@ -77,12 +77,24 @@ public class BetRequestProvider {
             //setBetRequest(cardStrenght() * (gameState.getCurrentBuyIn() - gameState.getPlayers().get(gameState.getInAction()).getBet() + gameState.getMinimumRaise()));
             switch (cardStrenght(allCards)) {
                 case 2: {
+                    if (!hp.isPairInHand()) {
+                        setBetRequest(0);
+                    }
+                    else{
                     if (nagyLapok.contains(isPair(allCards))) {
                         setBetRequest(gameState.getCurrentBuyIn() - gameState.getPlayers().get(gameState.getInAction()).getBet() + gameState.getMinimumRaise());
                     } else {
-
                         emelesDontes();
+                    }}
+                }
+                case 3: {
+                    if (!hp.isPairInHand()) {
+                        setBetRequest(0);
                     }
+                    setBetRequest(megad + 50);
+                }
+                case 4: {
+                    setBetRequest(megad + 100);
                 }
 
             }
@@ -91,16 +103,14 @@ public class BetRequestProvider {
 
     }
 
-    
     private void emelesDontes() {
         for (Player player : gameState.getPlayers()) {
             if (player.getStatus().equals("active")) {
                 if (gameState.getInAction() > player.getId() && player.getBet()
-                        >  minimumEmeles) {
+                        > minimumEmeles) {
                     setBetRequest(0);
-                    
-                }
-                else{
+
+                } else {
                     setBetRequest(megad);
                 }
             }
@@ -131,6 +141,12 @@ public class BetRequestProvider {
         if (isPair(allCards) != null) {
             return 2;
         }
+        if (isTwoPair(allCards)) {
+            return 3;
+        }
+        if (isDrill(allCards)) {
+            return 4;
+        }
         return 5;//10 kat
     }
 
@@ -155,11 +171,32 @@ public class BetRequestProvider {
                 }
             }
         }
-
+        int szamlalo = 0;
+        for (int i = 0; i < parok.length; i++) {
+            if (parok[i]) {
+                szamlalo++;
+            }
+            if (szamlalo > 2) {
+                return true;
+            }
+        }
         return false;
     }
 
     public boolean isDrill(List<Card> allCards) {
+
+        for (int i = 0; i < allCards.size() - 1; i++) {
+            for (int j = i + 1; j < allCards.size(); j++) {
+                if (allCards.get(i).getRank().equals(allCards.get(j).getRank())) {
+                    for (int k = j + 1; k < allCards.size(); k++) {
+                        if (allCards.get(j).equals(allCards.get(k))) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
         return false;
     }
 
