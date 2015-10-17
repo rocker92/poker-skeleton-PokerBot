@@ -15,44 +15,47 @@ import java.util.List;
  * @author corax
  */
 public class BetRequestProvider {
-
+    
     private GameState gameState;
     private int betRequest = 10;
-
+    
     public BetRequestProvider(GameState gameState) {
         this.gameState = gameState;
         init();
     }
-
+    
     private void init() {
         List<Card> cards = gameState.getCommunityCards();
         List<Card> ourCards = gameState.getPlayers().get(gameState.getInAction()).getHoleCards();
         HandProvider hp = new HandProvider(ourCards);
-
-        switch (hp.handStrenght()){
+        
+        switch (hp.handStrenght()) {
             case 1: {
-                setBetRequest(5*(gameState.getCurrentBuyIn()-gameState.getPlayers().get(gameState.getInAction()).getBet()+gameState.getMinimumRaise()));
+                setBetRequest(5 * (gameState.getCurrentBuyIn() - gameState.getPlayers().get(gameState.getInAction()).getBet() + gameState.getMinimumRaise()));
                 break;
             }
-            case 2:{
-                setBetRequest(2*(gameState.getCurrentBuyIn()-gameState.getPlayers().get(gameState.getInAction()).getBet()+gameState.getMinimumRaise()));
+            case 2: {
+                setBetRequest(2 * (gameState.getCurrentBuyIn() - gameState.getPlayers().get(gameState.getInAction()).getBet() + gameState.getMinimumRaise()));
                 break;
             }
-            case 3: break;
-            case 4: break;
-
+            case 3: {
+                setBetRequest(gameState.getCurrentBuyIn() - gameState.getPlayers().get(gameState.getInAction()).getBet());
+                break;
+            }            
+            case 4: {
+                setBetRequest(0);
+            }
+            
         }
         
-        }
-
+    }
     
-
     public int getBetRequest() {
         return betRequest;
     }
-
+    
     public void setBetRequest(int betRequest) {
         this.betRequest = betRequest;
     }
-
+    
 }
