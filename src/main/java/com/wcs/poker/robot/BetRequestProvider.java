@@ -8,6 +8,7 @@ package com.wcs.poker.robot;
 
 import com.wcs.poker.gamestate.Card;
 import com.wcs.poker.gamestate.GameState;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,14 +20,17 @@ public class BetRequestProvider {
     private GameState gameState;
     private int betRequest = 10;
     
+    private List<Card> cards = new ArrayList<>();
+    private List<Card> ourCards = new ArrayList<>();
+    
     public BetRequestProvider(GameState gameState) {
         this.gameState = gameState;
         init();
     }
     
     private void init() {
-        List<Card> cards = gameState.getCommunityCards();
-        List<Card> ourCards = gameState.getPlayers().get(gameState.getInAction()).getHoleCards();
+        cards = gameState.getCommunityCards();
+        ourCards = gameState.getPlayers().get(gameState.getInAction()).getHoleCards();
         HandProvider hp = new HandProvider(ourCards);
         
         switch (hp.handStrenght()) {
@@ -39,6 +43,15 @@ public class BetRequestProvider {
                 break;
             }
             case 3: {
+//                for (Player player : gameState.getPlayers()) {
+//                    if(player.getStatus().equals("active")){
+//                        if(gameState.getInAction() > player.getId() && player.getBet() > 
+//                                5 * (gameState.getCurrentBuyIn() - gameState.getPlayers().get(gameState.getInAction()).getBet() + gameState.getMinimumRaise())){
+//                                       setBetRequest(0);
+//                                       
+//                        }
+//                    }
+//                }
                 setBetRequest(gameState.getCurrentBuyIn() - gameState.getPlayers().get(gameState.getInAction()).getBet());
                 break;
             }            
@@ -56,6 +69,16 @@ public class BetRequestProvider {
     
     public void setBetRequest(int betRequest) {
         this.betRequest = betRequest;
+    }
+    
+    
+    
+    public int OrbitNumber(){
+        if (cards.isEmpty())return 0;
+        if (cards.size() == 3)return 1;
+        if (cards.size() == 4)return 2;
+        if (cards.size() == 5)return 3;
+        return 10;
     }
     
 }

@@ -41,6 +41,11 @@ public class HandProvider {
         this.masodik = ourCards.get(1);
     }
     
+    public HandProvider(Card elso, Card masodik) {
+        this.elso = elso;
+        this.masodik = masodik;
+    }
+    
     private void initVarakozoLapokhoz(){
         varakozoLapokhoz.add(Rank.NINE);
         varakozoLapokhoz.add(Rank.TEN);
@@ -88,6 +93,7 @@ public class HandProvider {
     }
 
     public boolean isWaitingCards(){
+        initVarakozoLapokhoz();
         //9-2 pár
         if(elso.getRank().equals(masodik.getRank())) return true;
         
